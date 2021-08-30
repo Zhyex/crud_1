@@ -1,0 +1,22 @@
+.activado{
+    font-weight: bold;
+    color: white;
+}
+
+body{
+
+    font-family: 'Trebuchet MS', sans-serif;
+
+}
+
+
+footer {
+    position: fixed;
+    left: 0;
+    bottom: 0;
+    width: 100%;
+
+  }
+
+
+

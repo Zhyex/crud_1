@@ -1,0 +1,89 @@
+<br>
+<div class="container">
+    <form [formGroup]="usersForm">
+        <label class="col-sm-2 col-form-label">Nombre Completo</label>
+        <div class="col-sm-10">
+            <input type="text" name="nombre" formControlName="NombreUser" class="form-control">
+            <span *ngIf="usersForm.controls.NombreUser.invalid &&
+             (usersForm.controls.NombreUser.dirty || usersForm.controls.NombreUser.touched)"
+                class="label label-danger" style="color:tomato"> Campo obligatorio </span>
+        </div>
+        <label class="col-sm-2 col-form-label">Fecha de nacimiento</label>
+        <div class="col-sm-10">
+            <input type="date" name="nacimiento" formControlName="FechaNacimiento" class="form-control"
+                placeholder="dd-MM-YYYY">
+            <span *ngIf="usersForm.controls.FechaNacimiento.invalid && 
+            (usersForm.controls.FechaNacimiento.dirty || usersForm.controls.FechaNacimiento.touched) "
+                class="label label-danger" style="color: tomato">Campo obligatorio </span>
+        </div>
+        <label class="col-sm-2 col-form-label">
+            Cedula
+        </label>
+        <div class="col-sm-10">
+            <input type="number" name="cedula" formControlName="Cedula" class="form-control"
+                placeholder="(sin puntos y sin comas)"  maxlength="10" required>
+            <span *ngIf="usersForm.controls.Cedula.invalid && (usersForm.controls.Cedula.dirty || usersForm.controls.Cedula.touched)"
+                class="label label-danger" style="color: tomato">Campo obligatorio. </span>
+            <span *ngIf="usersForm.controls.Cedula.invalid && (usersForm.controls.Cedula.dirty || usersForm.controls.Cedula.touched)"
+                class="label label-danger" style="color: tomato">Este campo solo acepta números </span>
+        </div>
+        <label class="col-sm-2 col-form-label">
+            Teléfono de contacto
+        </label>
+        <div class="col-sm-10">
+            <input type="number" name="telefono" formControlName="Telefono" class="form-control" maxlength="10" required>
+            <span *ngIf="usersForm.controls.Telefono.invalid && (usersForm.controls.Telefono.dirty || usersForm.controls.Telefono.touched)"
+                class="label label-danger" style="color: tomato">Campo obligatorio </span>
+        </div>
+        <label class="col-sm-2 col-form-label">
+            Salario
+
+        </label>
+        <div class="col-sm-10">
+            <input type="number" name="salario" formControlName="Salario" class="form-control"
+                placeholder="(sin puntos y sin comas)">
+            <span *ngIf="usersForm.controls.Salario.invalid && (usersForm.controls.Salario.dirty || usersForm.controls.Salario.touched )"
+                class="label label-danger" style="color: tomato">Campo obligatorio </span>
+        </div>
+
+        <input *ngIf="flagButton" type="submit" class="btn btn-primary" style="margin-top: 8px; color: white;"
+            [disabled]="usersForm.invalid" value="Guardar" (click)="AddUsers()" />
+        <input *ngIf="!flagButton" type="submit" class="btn btn-primary" style="margin-top: 8px; color: white;"
+            [disabled]="usersForm.invalid" value="Editar" (click)="EditUsers()" />
+    </form>
+
+</div>
+<br>
+
+<div class="container" *ngIf="userSaves.length > 0">
+    
+    <table class="table table-bordered">
+        <thead>
+            <tr>
+                <th scope="col">Nombre completo</th>
+                <th scope="col">Fecha Nacimiento</th>
+                <th scope="col">Cedula</th>
+                <th scope="col">Telefono</th>
+                <th scope="col">Salario</th>
+                <th scope="col">Opciones</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr *ngFor="let item of userSaves;let i = index">
+                <td>{{ item.NombreUser }}</td>
+                <td>{{ item.FechaNacimiento | date}}</td>
+                <td>{{ item.Cedula }}</td>
+                <td>{{ item.Telefono }}</td>
+                <td>{{ item.Salario | currency}}</td>
+                <td>
+                    
+                    <a class="pointerCursos" (click)="MapperUser(item)"><span class="oi oi-pencil">Editar</span></a>&nbsp;
+                    <a class="pointerCursos" (click)="DeleteUsers(i)"><span class="oi oi-pencil">Eliminar</span></a>
+                </td>
+            </tr>
+
+        </tbody>
+    </table>
+</div>
+
+<div class="container"><button><a (click)="redirect()"><span class="oi oi-home"></span> Volver</a></button></div>
